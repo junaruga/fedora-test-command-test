@@ -2,7 +2,10 @@
 
 set -ex
 
+uname -a
 uname -r
+rpm -q kernel
+rpm -q glibc
 rpm -q bash
 rpm -qf /usr/bin/test
 stat /usr/bin/echo
