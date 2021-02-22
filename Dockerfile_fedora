@@ -1,0 +1,24 @@
+ARG IMAGE=fedora:latest
+FROM ${IMAGE}
+
+WORKDIR /build
+COPY . .
+
+RUN dnf -y update
+# The options are to install faster.
+RUN dnf -y install \
+  --setopt=deltarpm=0 \
+  --setopt=install_weak_deps=false \
+  --setopt=tsflags=nodocs \
+  gcc \
+  git \
+  gcc-c++ \
+  make \
+  mariadb-connector-c-devel \
+  mariadb-server \
+  redhat-rpm-config \
+  ruby-devel \
+  rubygem-bigdecimal \
+  rubygem-bundler
+
+CMD bash test.sh

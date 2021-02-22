@@ -1,0 +1,21 @@
+name: Test
+on: [push, pull_request]
+jobs:
+  build:
+    name: >-
+      ${{ matrix.distro }} ${{ matrix.image }}
+    runs-on: ubuntu-20.04 # focal
+    strategy:
+      matrix:
+        include:
+          - {distro: fedora, image: 'docker.io/fedora:33'}
+          - {distro: fedora, image: 'registry.fedoraproject.org/fedora:33'}
+          - {distro: fedora, image: 'docker.io/fedora:34'}
+          - {distro: fedora, image: 'registry.fedoraproject.org/fedora:34'}
+          - {distro: fedora, image: 'docker.io/fedora:rawhide'}
+          - {distro: fedora, image: 'registry.fedoraproject.org/fedora:rawhide'}
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v2
+      - run: docker build -t test-command -f Dockerfile_${{ matrix.distro }} --build-arg IMAGE=${{ matrix.image }} .
+      - run: docker run -t test-command
