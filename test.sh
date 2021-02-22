@@ -2,6 +2,7 @@
 
 set -ex
 
+uname -r
 rpm -q bash
 rpm -qf /usr/bin/test
 stat /usr/bin/echo
