@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-set -eux
+# set -eux
+set -e
 
 rpm -q bash
 
