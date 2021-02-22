@@ -2,6 +2,8 @@
 
 set -eux
 
+rpm -q bash
+
 /usr/bin/test -x /usr/bin/echo || {
   echo "[DEBUG] /usr/bin/echo not executable 1"
 }
