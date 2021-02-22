@@ -1,12 +1,4 @@
 ARG IMAGE=fedora:latest
 FROM ${IMAGE}
 
-RUN dnf -y update
-# The options are to install faster.
-RUN dnf -y install \
-  --setopt=deltarpm=0 \
-  --setopt=install_weak_deps=false \
-  --setopt=tsflags=nodocs \
-  bash
-
 CMD bash test.sh
