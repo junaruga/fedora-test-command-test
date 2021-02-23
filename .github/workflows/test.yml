@@ -28,4 +28,8 @@ jobs:
       - run: docker --version
       - run: docker info
       - run: docker build -t test-command -f Dockerfile_${{ matrix.distro }} --build-arg IMAGE=${{ matrix.image }} .
-      - run: docker run -t test-command
+      # Add options not to restrict the container to avoid the following issue
+      # on fedora 34, 35 (rawhide).
+      # https://bugzilla.redhat.com/show_bug.cgi?id=1900021
+      # - run: docker run -t --cap-add=SYS_PTRACE --security-opt seccomp=unconfined test-command
+      - run: docker run -t --security-opt seccomp=unconfined test-command
